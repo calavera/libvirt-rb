@@ -55,7 +55,7 @@ module FFI
     callback :virStreamEventCallback, [:virStreamPtr, :int, :void_pointer], :void
 
     # Enums
-    enum :virConnectCredentialType, [:username, 1, :authname, :language, :cnonce, :passphrase, :echoprompt, :noechoprompt, :realm, :external]
+    CredentialType = enum :virConnectCredentialType, [:username, 1, :authname, :language, :cnonce, :passphrase, :echoprompt, :noechoprompt, :realm, :external]
     enum :virDomainState, [:nostate, :running, :blocked, :paused, :shutdown, :shutoff, :crashed]
     enum :virStoragePoolDeleteFlags, [:normal, :zeroed]
     enum :virStoragePoolState, [:inactive, :building, :running, :degraded, :inaccessible]

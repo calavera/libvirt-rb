@@ -2,7 +2,7 @@ module FFI
   module Libvirt
 
     class ConnectAuth < ::FFI::Struct
-      layout :credtype, [:virConnectCredentialType, 9],
+      layout :credtype, [ CredentialType, CredentialType.symbols.length ],
              :ncredtype, :uint,
              :cb, :virConnectAuthCallback,
              :cbdata, :void_pointer
