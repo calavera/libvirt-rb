@@ -3,6 +3,7 @@ module FFI
     # Typedefs for various pointers to libvirt structures
     typedef :pointer, :virConnectPtr
     typedef :pointer, :virConnectAuthPtr
+    typedef :pointer, :virConnectCredentialPtr
     typedef :pointer, :virDomainPtr
     typedef :pointer, :virDomainBlockInfoPtr
     typedef :pointer, :virDomainBlockStatsPtr
@@ -37,7 +38,9 @@ module FFI
     typedef :pointer, :void_pointer
 
     # Callbacks
+    callback :virConnectAuthCallback, [:virConnectCredentialPtr, :uint, :void_pointer], :int
     callback :virConnectDomainEventCallback, [:virConnectPtr, :virDomainPtr, :int, :int, :void_pointer], :int
+    callback :virConnectDomainEventGenericCallback, [:virConnectPtr, :virDomainPtr, :void_pointer], :void
     callback :virFreeCallback, [:void_pointer], :void
     callback :virEventHandleCallback, [:int, :int, :int, :void_pointer], :void
     callback :virEventAddHandleFunc, [:int, :int, :virEventHandleCallback, :void_pointer, :virFreeCallback], :int
@@ -50,9 +53,9 @@ module FFI
     callback :virStreamSourceFunc, [:virStreamPtr, :string, :size_t, :void_pointer], :int
     callback :virStreamSinkFunc, [:virStreamPtr, :string, :size_t, :void_pointer], :int
     callback :virStreamEventCallback, [:virStreamPtr, :int, :void_pointer], :void
-    callback :virConnectDomainEventGenericCallback, [:virConnectPtr, :virDomainPtr, :void_pointer], :void
 
     # Enums
+    enum :virConnectCredentialType, [:username, 1, :authname, :language, :cnonce, :passphrase, :echoprompt, :noechoprompt, :realm, :external]
     enum :virDomainState, [:nostate, :running, :blocked, :paused, :shutdown, :shutoff, :crashed]
     enum :virStoragePoolDeleteFlags, [:normal, :zeroed]
     enum :virStoragePoolState, [:inactive, :building, :running, :degraded, :inaccessible]
